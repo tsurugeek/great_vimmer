@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2019_02_12_184208) do
 
   create_table "grades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.boolean "published"
+    t.string "title", null: false
+    t.boolean "published", default: false, null: false
     t.integer "grade_num"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
