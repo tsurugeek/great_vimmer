@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_184208) do
+ActiveRecord::Schema.define(version: 2019_02_12_194913) do
 
   create_table "grades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
@@ -20,4 +20,15 @@ ActiveRecord::Schema.define(version: 2019_02_12_184208) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "grade_id", null: false
+    t.string "sentence", null: false
+    t.string "answer"
+    t.boolean "published", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grade_id"], name: "index_questions_on_grade_id"
+  end
+
+  add_foreign_key "questions", "grades"
 end

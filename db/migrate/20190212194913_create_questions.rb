@@ -1,10 +1,10 @@
 class CreateQuestions < ActiveRecord::Migration[5.2]
   def change
     create_table :questions do |t|
-      t.integer :grade_id
-      t.string :sentence
+      t.belongs_to :grade,  null: false, foreign_key: true
+      t.string :sentence,   null: false
       t.string :answer
-      t.boolean :published
+      t.boolean :published, null: false, default: false
 
       t.timestamps
     end
