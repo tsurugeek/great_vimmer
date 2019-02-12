@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Grade:
+  = @question.grade_id
+%p
+  %b Sentence:
+  = @question.sentence
+%p
+  %b Answer:
+  = @question.answer
+%p
+  %b Published:
+  = @question.published
+
+= link_to 'Edit', edit_question_path(@question)
+\|
+= link_to 'Back', admin_questions_path
