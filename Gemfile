@@ -74,4 +74,5 @@ end
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'haml-rails' 
+gem 'simple_form' 
 
