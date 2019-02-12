@@ -16,10 +16,10 @@
         %td= grade.title
         %td= grade.published
         %td= grade.grade_num
-        %td= link_to 'Show', grade
-        %td= link_to 'Edit', edit_grade_path(grade)
-        %td= link_to 'Destroy', grade, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', [:admin, grade]
+        %td= link_to 'Edit', edit_admin_grade_path(grade)
+        %td= link_to 'Destroy', [:admin, grade], method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Grade', new_grade_path
+= link_to 'New Grade', new_admin_grade_path
