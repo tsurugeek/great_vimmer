@@ -1,10 +1,11 @@
 class Admin::QuestionsController < ApplicationController
+  before_action :set_grade
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = @grade.questions.all
   end
 
   # GET /questions/1
@@ -25,11 +26,12 @@ class Admin::QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
+    @question.grade = @grade
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
+        format.html { redirect_to [:admin, @grade, @question], notice: 'Question was successfully created.' }
+        format.json { render :show, status: :created, location: [:admin, @grade, @question] }
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -42,8 +44,8 @@ class Admin::QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to [:admin, @grade, @question], notice: 'Question was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:admin, @grade, @question] }
       else
         format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -56,12 +58,15 @@ class Admin::QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to admin_questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to admin_grade_questions_url(@grade), notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_grade
+      @grade = Grade.find(params[:grade_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
@@ -69,6 +74,6 @@ class Admin::QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:grade_id, :sentence, :answer, :published)
+      params.require(:question).permit(:sentence, :answer, :published)
     end
 end

@@ -13,6 +13,6 @@
   %b Published:
   = @question.published
 
-= link_to 'Edit', edit_question_path(@question)
+= link_to 'Edit', edit_admin_grade_question_path(@grade, @question)
 \|
-= link_to 'Back', admin_questions_path
+= link_to 'Back', admin_grade_questions_path(@grade)

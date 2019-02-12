@@ -1,9 +1,8 @@
 %h1 Listing questions
 
-%table
+%table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th Grade
       %th Sentence
       %th Answer
       %th Published
@@ -14,14 +13,13 @@
   %tbody
     - @questions.each do |question|
       %tr
-        %td= question.grade_id
         %td= question.sentence
         %td= question.answer
         %td= question.published
-        %td= link_to 'Show', question
-        %td= link_to 'Edit', edit_question_path(question)
-        %td= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', [:admin, @grade, question]
+        %td= link_to 'Edit', edit_admin_grade_question_path(@grade, question)
+        %td= link_to 'Destroy', [:admin, @grade, question], method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Question', new_question_path
+= link_to 'New Question', new_admin_grade_question_path(@grade)

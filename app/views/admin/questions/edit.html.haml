@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @question
+= link_to 'Show', [:admin, @grade, @question]
 \|
-= link_to 'Back', admin_questions_path
+= link_to 'Back', admin_grade_questions_path(@grade)
