@@ -1,0 +1,33 @@
+%div.text-center
+  %ol.breadcrumb
+    %li= link_to "Home", root_path
+    %li= link_to @grade.title, @grade
+    %li.active= "Your Score"
+  .page-header
+    %h1 Your score!!
+  .page-body
+    %div
+      %span= "score: #{(@result*100).to_i}%"
+
+    %h2 Detail
+
+    // %table.table-striped.table-hover.text-center
+    %table.table.text-left{style: "width:80%; margin: 0 auto"}
+      %thead
+        %tr
+          %th.text-right{style: "width:10%"} No.
+          %th Sentence
+          %th{style: "width:15%"} Correct Answer
+          %th{style: "width:15%"} Your Answer
+          %th{style: "width:10%"} Result
+
+      %tbody
+        - @answers.each do |answer|
+          %tr
+            %td.text-right= answer['num']
+            %td= Question.find(answer['qid']).sentence
+            %td= Question.find(answer['qid']).answer
+            %td= answer['a']
+            %td= answer['ok']
+
+    %br

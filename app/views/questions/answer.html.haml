@@ -1,0 +1,33 @@
+%div.text-center
+  %ol.breadcrumb
+    %li= link_to "Home", root_path
+    %li= link_to @grade.title, @grade
+    %li.active= "Answer No.#{@answer['num']} (Total #{session['a'].size})"
+  .page-header
+    %h1= "Answer No.#{@answer['num']}"
+  .page-body
+    %p#result{data: {result: @answer['ok'].to_s}}= (@answer['ok'])? "OK!" : "NG!"
+    %p= "your answer: #{@answer['a']}"
+    %p= "correct: #{@question.answer}"
+    - if @next_answer
+      %div= link_to("Press N key to go to next question! (or click this link)", grade_question_path(@grade, @next_answer['qid']), id: :next)
+    - else
+      %div= link_to("Press N key to see your socre! (or click this link)", summary_grade_path(@grade), id: :next)
+
+
+%audio#ok{preload: "auto"}
+  %source{src: "/sounds/ok.m4a", type: "audio/mp3"}
+  %p ※お使いのブラウザでは音は鳴りません。
+%audio#ng{preload: "auto"}
+  %source{src: "/sounds/ng.m4a", type: "audio/mp3"}
+  %p ※お使いのブラウザでは音は鳴りません。
+
+:coffee
+  if $("#result").data('result') == true
+    document.querySelector("#ok").play()
+  else
+    document.querySelector("#ng").play()
+  $(window).on 'keydown', (event) ->
+      k = event.key
+      if k == 'n' || k == 'N'
+        document.querySelector("#next").click()

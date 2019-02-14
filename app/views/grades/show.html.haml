@@ -1,0 +1,22 @@
+%div.text-center
+  %ol.breadcrumb
+    %li= link_to "Home", root_path
+    %li.active @grade.title
+  .page-header
+    %h1
+      %small Grade:
+      = @grade.title
+  .page-body
+    %p= "Are you ready? Click below link!"
+    %div= link_to("Press N key to start!!! (or click this link)", start_grade_path(@grade), method: :post, id: :start)
+
+%audio#start_sound{preload: "auto"}
+  %source{src: "/sounds/start.m4a", type: "audio/mp3"}
+  %p ※お使いのブラウザでは音は鳴りません。
+
+:coffee
+  $(window).on 'keydown', (event) ->
+      k = event.key
+      if k == 'n' || k == 'N'
+        document.querySelector("#start_sound").play()
+        document.querySelector("#start").click()

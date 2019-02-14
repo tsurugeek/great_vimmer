@@ -1,0 +1,48 @@
+%div.text-center
+  %ol.breadcrumb
+    %li= link_to "Home", root_path
+    %li= link_to @grade.title, @grade
+    %li.active= "Question No.#{@answer['num']} (Total #{session['a'].size})"
+  .page-header
+    %h1= "Question No.#{@answer['num']}"
+  .page-body
+    %div
+      %p.well.question= @question.sentence
+      %p type!
+    %div= link_to("answer(kari)", answer_grade_question_path(@grade, @question), method: :post)
+
+= form_with(url: answer_grade_question_path(@grade, @question), local: true, id: :form, data: {max: 1, current: 0}) do |f|
+  = ""
+
+:coffee
+  $(window).on 'keydown', (event) ->
+      c = if event.which then event.which else event.keyCode
+      k = event.key
+      if c == 16 || c == 91 || c == 18 || c == 20 || c == 13 || c == 17# shift, meta(command/win), alt(option), caps lock, enter, control
+        console.log k
+        # Shift
+        # Alt
+        # Meta
+        # CapsLock
+        # Enter
+        return false
+      a = '';
+      if event.shiftKey
+        a = k
+      else if event.altKey
+        a = "alt+" + k
+      else if event.metaKey
+        a = "meta+" + k
+      else if event.ctrlKey
+        a = "ctrl+" + k
+      else
+        a = k
+      console.log a
+      $form = $("#form")
+      $form.append("<input type='hidden' name='a' value='" + k + "'>")
+      $form.data('current', $form.data('current') + 1)
+      if $form.data('current') >= $form.data('max')
+        console.log('submit')
+        $form.submit()
+
+      return false

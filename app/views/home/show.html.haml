@@ -1,2 +1,13 @@
-%h1 Home#show
-%p Find me in app/views/home/show.html.haml
+%h1 Listing grades for being great vimmer!!
+
+%table.table-striped.table-hover
+  %thead
+    %tr
+      %th title
+
+  %tbody
+    - @grades.each do |grade|
+      %tr
+        %td= link_to grade.title, grade
+
+%br
