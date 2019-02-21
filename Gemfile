@@ -6,7 +6,12 @@ ruby '2.6.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+group :development, :test do
+  gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+end
+group :production do
+  gem 'pg'
+end
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -42,6 +47,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-doc'
+  gem 'pry-stack_explorer'
   gem 'hirb'
   gem 'hirb-unicode'
   gem 'rspec-rails'
@@ -73,6 +79,5 @@ end
 
 gem 'jquery-rails'
 gem 'bootstrap-sass'
-gem 'haml-rails' 
-gem 'simple_form' 
-
+gem 'haml-rails'
+gem 'simple_form'
